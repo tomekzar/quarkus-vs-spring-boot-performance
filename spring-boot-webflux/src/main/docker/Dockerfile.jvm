@@ -1,0 +1,4 @@
+FROM openjdk:11-jre
+COPY /target/spring-boot-webflux-1.0-SNAPSHOT.jar app.jar
+EXPOSE 8080
+CMD java $JAVA_OPTS -jar app.jar
