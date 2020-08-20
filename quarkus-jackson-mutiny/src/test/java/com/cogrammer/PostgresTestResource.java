@@ -21,7 +21,8 @@ public class PostgresTestResource implements QuarkusTestResourceLifecycleManager
                 "quarkus.datasource.reactive.url", formatToReactiveDatabaseUrl(DATABASE.getJdbcUrl()),
                 "quarkus.datasource.username", "performance-benchmark",
                 "quarkus.datasource.password", "performance-benchmark",
-                "quarkus.datasource.reactive.max-size", "20"
+                "quarkus.datasource.reactive.max-size", "20",
+                "quarkus.datasource.reactive.postgresql.ssl-mode", "disable"
         );
     }
 

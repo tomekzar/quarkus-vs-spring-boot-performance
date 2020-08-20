@@ -66,7 +66,8 @@ class SpringBootWebfluxApplicationTests {
             TestPropertyValues.of(
                     "spring.r2dbc.url=" + formatToReactiveUrl(DATABASE.getJdbcUrl()),
                     "spring.r2dbc.username=" + DATABASE.getUsername(),
-                    "spring.r2dbc.password=" + DATABASE.getPassword()
+                    "spring.r2dbc.password=" + DATABASE.getPassword(),
+                    "spring.r2dbc.properties.sslMode=DISABLE"
             ).applyTo(context.getEnvironment());
         }
 
