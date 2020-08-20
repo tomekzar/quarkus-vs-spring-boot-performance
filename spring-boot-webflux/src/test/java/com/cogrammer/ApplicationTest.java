@@ -18,9 +18,9 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ContextConfiguration(initializers = ApplicationTests.PostgresInitializer.class)
+@ContextConfiguration(initializers = ApplicationTest.PostgresInitializer.class)
 @Testcontainers
-class ApplicationTests {
+class ApplicationTest {
 
     @Container
     private static final PostgreSQLContainer<?> DATABASE = new PostgreSQLContainer<>("postgres:12.3")
@@ -36,6 +36,15 @@ class ApplicationTests {
     @BeforeEach
     void setUp() {
         RestAssured.port = port;
+    }
+
+    @Test
+    void should_expose_readiness_probe() {
+        given()
+            .when()
+                .get("/api/health/ready")
+            .then()
+                .statusCode(200);
     }
 
     @Test
@@ -64,10 +73,15 @@ class ApplicationTests {
         @Override
         public void initialize(ConfigurableApplicationContext context) {
             TestPropertyValues.of(
-                    "spring.datasource.url=" + DATABASE.getJdbcUrl(),
-                    "spring.datasource.username=" + DATABASE.getUsername(),
-                    "spring.datasource.password=" + DATABASE.getPassword()
+                    "spring.r2dbc.url=" + formatToReactiveUrl(DATABASE.getJdbcUrl()),
+                    "spring.r2dbc.username=" + DATABASE.getUsername(),
+                    "spring.r2dbc.password=" + DATABASE.getPassword(),
+                    "spring.r2dbc.properties.sslMode=DISABLE"
             ).applyTo(context.getEnvironment());
+        }
+
+        private String formatToReactiveUrl(String jdbcUrl) {
+            return jdbcUrl.replace("jdbc", "r2dbc");
         }
     }
 }
