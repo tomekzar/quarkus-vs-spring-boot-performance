@@ -14,7 +14,7 @@ public class ExampleService {
 
     @SneakyThrows
     public Message blockingHello() {
-        Thread.sleep(500);
+        Thread.sleep(100);
         return new Message("Hello!");
     }
 

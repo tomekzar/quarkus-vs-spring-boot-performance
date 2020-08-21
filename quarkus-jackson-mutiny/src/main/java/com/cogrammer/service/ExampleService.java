@@ -27,7 +27,7 @@ public class ExampleService {
     public Uni<Message> blockingHello() {
         return Uni.createFrom().item(() -> {
             try {
-                Thread.sleep(500);
+                Thread.sleep(100);
                 return new Message("Hello!");
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

@@ -17,7 +17,7 @@ public class ExampleService {
     public Mono<Message> blockingHello() {
         return Mono.fromSupplier(() -> {
             try {
-                Thread.sleep(500);
+                Thread.sleep(100);
                 return new Message("Hello!");
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
