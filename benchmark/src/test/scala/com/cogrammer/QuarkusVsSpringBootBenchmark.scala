@@ -14,11 +14,11 @@ class QuarkusVsSpringBootBenchmark extends Simulation {
   )
 
   private val constantUsersStrategy = List(
-    constantUsersPerSec(10) during (10 minutes)
+    constantUsersPerSec(5) during (10 minutes)
   )
 
   private val spikeStrategy = List(
-    rampUsersPerSec(0) to 30 during (20 minutes)
+    rampUsersPerSec(0) to 8 during (20 minutes)
   )
 
   private val loadStrategies = Map(
