@@ -18,6 +18,15 @@ mvn clean package -Pnative -Dquarkus.native.container-build=true
 docker build -f src/main/docker/Dockerfile.native -t quarkus-vs-sb-performance:quarkus-mutiny-native .
 docker tag quarkus-vs-sb-performance:quarkus-mutiny-native tomekzar/quarkus-vs-spring-boot-performance:quarkus-mutiny-native
 
+cd ../quarkus-vertx || exit 1
+mvn clean package -Dquarkus.package.type=fast-jar
+docker build -f src/main/docker/Dockerfile.fast-jar -t quarkus-vs-sb-performance:quarkus-vertx-jvm .
+docker tag quarkus-vs-sb-performance:quarkus-vertx-jvm tomekzar/quarkus-vs-spring-boot-performance:quarkus-vertx-jvm
+
+mvn clean package -Pnative -Dquarkus.native.container-build=true
+docker build -f src/main/docker/Dockerfile.native -t quarkus-vs-sb-performance:quarkus-vertx-native .
+docker tag quarkus-vs-sb-performance:quarkus-vertx-native tomekzar/quarkus-vs-spring-boot-performance:quarkus-vertx-native
+
 cd ../spring-boot || exit 1
 mvn clean package
 docker build -f src/main/docker/Dockerfile.jvm -t quarkus-vs-sb-performance:spring-boot-jvm .
