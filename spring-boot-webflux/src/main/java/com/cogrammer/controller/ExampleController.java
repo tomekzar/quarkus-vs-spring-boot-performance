@@ -19,7 +19,7 @@ public class ExampleController {
 
     @GetMapping(path = "/hello")
     public Mono<Message> hello() {
-        return service.blockingHello();
+        return service.delayedHello();
     }
 
     @GetMapping(path = "/cities")
